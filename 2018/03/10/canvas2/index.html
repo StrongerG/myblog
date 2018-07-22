@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="HTML5," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="canvas中的变换translate(x, y)     我们先介绍 translate 方法，它用来移动 canvas的原点到一个不同的位置。     translate 方法接受两个参数。x 是左右偏移量，y 是上下偏移量，      在canvas中translate是累加的  rotate(angle)     这个方法只接受一个参数：旋转的角度(angle)，它是顺时针方向的，以弧度为">
+<meta name="keywords" content="HTML5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="canvas2">
+<meta property="og:url" content="http://yoursite.com/2018/03/10/canvas2/index.html">
+<meta property="og:site_name" content="Orwell&#39;s Notes">
+<meta property="og:description" content="canvas中的变换translate(x, y)     我们先介绍 translate 方法，它用来移动 canvas的原点到一个不同的位置。     translate 方法接受两个参数。x 是左右偏移量，y 是上下偏移量，      在canvas中translate是累加的  rotate(angle)     这个方法只接受一个参数：旋转的角度(angle)，它是顺时针方向的，以弧度为">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-19T13:14:59.404Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="canvas2">
+<meta name="twitter:description" content="canvas中的变换translate(x, y)     我们先介绍 translate 方法，它用来移动 canvas的原点到一个不同的位置。     translate 方法接受两个参数。x 是左右偏移量，y 是上下偏移量，      在canvas中translate是累加的  rotate(angle)     这个方法只接受一个参数：旋转的角度(angle)，它是顺时针方向的，以弧度为">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/10/canvas2/"/>
+
+
+
+
+
+  <title>canvas2 | Orwell's Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Orwell's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/canvas2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Orwell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Orwell's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">canvas2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T16:57:17+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="canvas中的变换"><a href="#canvas中的变换" class="headerlink" title="canvas中的变换"></a>canvas中的变换</h4><pre><code>translate(x, y)
+    我们先介绍 translate 方法，它用来移动 canvas的原点到一个不同的位置。
+    translate 方法接受两个参数。x 是左右偏移量，y 是上下偏移量，
+
+    在canvas中translate是累加的
+
+rotate(angle)
+    这个方法只接受一个参数：旋转的角度(angle)，它是顺时针方向的，以弧度为单位的值。
+    旋转的中心点始终是 canvas 的原点，如果要改变它，我们需要用到 translate 方法
+
+    在canvas中rotate是累加的
+
+scale(x, y)
+    scale 方法接受两个参数。x,y 分别是横轴和纵轴的缩放因子，它们都必须是正值。
+    值比 1.0 小表示缩小，比 1.0 大则表示放大，值为 1.0 时什么效果都没有。
+    缩放一般我们用它来增减图形在 canvas 中的像素数目，对形状，位图进行缩小或者放大。
+
+    在canvas中scale是累称的
+</code></pre><h4 id="表盘"><a href="#表盘" class="headerlink" title="表盘"></a>表盘</h4><pre><code>1.初始化
+    将圆心调整到画布的中间
+    由于canvas中画圆与旋转所参照的坐标系于正常坐标系有出入
+        将整个画布逆时针旋转90度
+    初始化一些样式数据
+        ctx.lineWidth = 8;
+          ctx.strokeStyle = &quot;black&quot;;
+          ctx.lineCap = &quot;round&quot;;
+
+2.外层空心圆盘
+    圆盘颜色:#325FA2
+    圆盘宽度:14
+    圆盘半径:140
+
+3.时针刻度
+    长度为20
+    宽度为8
+    外层空心圆盘与时针刻度之间的距离也为20
+
+4.分针刻度
+    宽度为4
+    长度为3
+
+5.时针
+    宽度为14
+    圆心外溢出80 收20
+
+6.分针
+    宽度为10
+    圆心外溢出112 收28
+
+7.秒针
+    颜色:D40000
+    宽度为6
+    圆心外溢出83 收30
+
+    ----&gt;中心实心圆盘
+        半径为10
+    ----&gt;秒针头
+        96码开外半径为10的空心圆
+        宽度为6
+</code></pre><h4 id="在canvas中插入图片-需要image对象"><a href="#在canvas中插入图片-需要image对象" class="headerlink" title="在canvas中插入图片(需要image对象)"></a>在canvas中插入图片(需要image对象)</h4><pre><code>1.canvas操作图片时，必须要等图片加载完才能操作
+2.drawImage(image, x, y, width, height)
+    其中 image 是 image 或者 canvas 对象，x 和 y 是其在目标 canvas 里的起始坐标。
+    这个方法多了2个参数：width 和 height，这两个参数用来控制 当像canvas画入时应该缩放的大小
+</code></pre><h4 id="在canvas中设置图片背景-需要image对象"><a href="#在canvas中设置图片背景-需要image对象" class="headerlink" title="在canvas中设置图片背景(需要image对象)"></a>在canvas中设置图片背景(需要image对象)</h4><pre><code>1.createPattern(image, repetition)
+    image:图像源
+    epetition:
+        &quot;repeat&quot;
+        &quot;repeat-x&quot;
+        &quot;repeat-y&quot;
+        &quot;no-repeat&quot;
+
+一般情况下，我们都会将createPattern返回的对象作为fillstyle的值
+</code></pre><h4 id="渐变"><a href="#渐变" class="headerlink" title="渐变"></a>渐变</h4><pre><code>canvas渐变（线性渐变）
+    createLinearGradient(x1, y1, x2, y2)
+            表示渐变的起点 (x1,y1) 与终点 (x2,y2)
+
+    gradient.addColorStop(position, color)
+            gradient :createLinearGradient的返回值
+            addColorStop 方法接受 2 个参数，
+                position 参数必须是一个 0.0 与 1.0 之间的数值，表示渐变中颜色所在的相对位置。
+                                例如，0.5 表示颜色会出现在正中间。
+                color 参数必须是一个有效的 CSS 颜色值（如 #FFF， rgba(0,0,0,1)，等等）
+
+
+canvas渐变（径向渐变）
+    createRadialGradient(x1, y1, r1, x2, y2, r2)
+        前三个参数则定义另一个以(x1,y1) 为原点，半径为 r1 的圆，
+        后三个参数则定义另一个以 (x2,y2) 为原点，半径为 r2 的圆。
+</code></pre><h4 id="在canvas中绘制文本"><a href="#在canvas中绘制文本" class="headerlink" title="在canvas中绘制文本"></a>在canvas中绘制文本</h4><pre><code>canvas 提供了两种方法来渲染文本:
+    fillText(text, x, y)
+        在指定的(x,y)位置填充指定的文本
+    strokeText(text, x, y)
+        在指定的(x,y)位置绘制文本边框
+</code></pre><h4 id="文本样式"><a href="#文本样式" class="headerlink" title="文本样式"></a>文本样式</h4><pre><code>font = value
+    当前我们用来绘制文本的样式. 这个字符串使用和 CSS font 属性相同的语法.
+    默认的字体是 10px sans-serif。
+    font属性在指定时，必须要有大小和字体 缺一不可
+
+textAlign = value
+    文本对齐选项. 可选的值包括： left, right  center.
+    left
+        文本左对齐。
+    right
+        文本右对齐。
+    center
+        文本居中对齐。
+        这里的textAlign=&quot;center&quot;比较特殊。textAlign的值为center时候
+        文本的居中是基于你在fillText的时候所给的x的值，
+        也就是说文本一半在x的左边，一半在x的右边
+
+
+textBaseline = value
+    描述绘制文本时，当前文本基线的属性。
+    top
+        文本基线在文本块的顶部。
+    middle
+        文本基线在文本块的中间。
+    bottom
+        文本基线在文本块的底部。
+</code></pre><h4 id="measureText"><a href="#measureText" class="headerlink" title="measureText"></a>measureText</h4><pre><code>measureText() 方法返回一个 TextMetrics 对象，包含关于文本尺寸的信息（例如文本的宽度）
+</code></pre><h4 id="文本阴影"><a href="#文本阴影" class="headerlink" title="文本阴影"></a>文本阴影</h4><pre><code>shadowOffsetX = float
+    shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，
+    它们默认都为 0。
+shadowOffsetY = float
+    shadowOffsetX 和 shadowOffsetY 用来设定阴影在 X 和 Y 轴的延伸距离，
+    它们默认都为 0。
+shadowBlur = float
+    shadowBlur 用于设定阴影的模糊程度，其数值并不跟像素数量挂钩，也不受变换矩阵的影响，默认为 0。
+shadowColor = color(必需项)
+    shadowColor 是标准的 CSS 颜色值，用于设定阴影颜色效果，默认是全透明的黑色。
+</code></pre>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML5/" rel="tag"># HTML5</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/10/js5/" rel="next" title="JS线程机制与事件机制">
+                <i class="fa fa-chevron-left"></i> JS线程机制与事件机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/11/jquery/" rel="prev" title="jQuery(一)">
+                jQuery(一) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Orwell" />
+            
+              <p class="site-author-name" itemprop="name">Orwell</p>
+              <p class="site-description motion-element" itemprop="description">React Up!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#canvas中的变换"><span class="nav-number">1.</span> <span class="nav-text">canvas中的变换</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#表盘"><span class="nav-number">2.</span> <span class="nav-text">表盘</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在canvas中插入图片-需要image对象"><span class="nav-number">3.</span> <span class="nav-text">在canvas中插入图片(需要image对象)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在canvas中设置图片背景-需要image对象"><span class="nav-number">4.</span> <span class="nav-text">在canvas中设置图片背景(需要image对象)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#渐变"><span class="nav-number">5.</span> <span class="nav-text">渐变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#在canvas中绘制文本"><span class="nav-number">6.</span> <span class="nav-text">在canvas中绘制文本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文本样式"><span class="nav-number">7.</span> <span class="nav-text">文本样式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#measureText"><span class="nav-number">8.</span> <span class="nav-text">measureText</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文本阴影"><span class="nav-number">9.</span> <span class="nav-text">文本阴影</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Orwell</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
