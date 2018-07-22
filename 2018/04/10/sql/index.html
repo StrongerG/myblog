@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SQL," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理SQL是用于访问和处理数据库的标准的计算机语言。SQL 指结构化查询语言，使我们有能力访问数据库RDBMS 指的是关系型数据库管理系统。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。SQL语言的分类 DQL（Data Query Language）   select DML（">
+<meta name="keywords" content="SQL">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql语法初步">
+<meta property="og:url" content="http://yoursite.com/2018/04/10/sql/index.html">
+<meta property="og:site_name" content="Orwell&#39;s Notes">
+<meta property="og:description" content="数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理SQL是用于访问和处理数据库的标准的计算机语言。SQL 指结构化查询语言，使我们有能力访问数据库RDBMS 指的是关系型数据库管理系统。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。SQL语言的分类 DQL（Data Query Language）   select DML（">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-22T15:37:38.218Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql语法初步">
+<meta name="twitter:description" content="数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理SQL是用于访问和处理数据库的标准的计算机语言。SQL 指结构化查询语言，使我们有能力访问数据库RDBMS 指的是关系型数据库管理系统。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。SQL语言的分类 DQL（Data Query Language）   select DML（">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/10/sql/"/>
+
+
+
+
+
+  <title>sql语法初步 | Orwell's Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Orwell's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/10/sql/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Orwell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Orwell's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">sql语法初步</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-10T21:54:39+08:00">
+                2018-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据库/" itemprop="url" rel="index">
+                    <span itemprop="name">数据库</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h5 id="数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理"><a href="#数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理" class="headerlink" title="数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理"></a>数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理</h5><h5 id="SQL是用于访问和处理数据库的标准的计算机语言。SQL-指结构化查询语言，使我们有能力访问数据库"><a href="#SQL是用于访问和处理数据库的标准的计算机语言。SQL-指结构化查询语言，使我们有能力访问数据库" class="headerlink" title="SQL是用于访问和处理数据库的标准的计算机语言。SQL 指结构化查询语言，使我们有能力访问数据库"></a>SQL是用于访问和处理数据库的标准的计算机语言。SQL 指结构化查询语言，使我们有能力访问数据库</h5><h5 id="RDBMS-指的是关系型数据库管理系统。RDBMS-中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。"><a href="#RDBMS-指的是关系型数据库管理系统。RDBMS-中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。" class="headerlink" title="RDBMS 指的是关系型数据库管理系统。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。"></a>RDBMS 指的是关系型数据库管理系统。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。</h5><h5 id="SQL语言的分类"><a href="#SQL语言的分类" class="headerlink" title="SQL语言的分类"></a>SQL语言的分类</h5><ul>
+<li>DQL（Data Query Language）   select</li>
+<li>DML（Data Manipulate Language）   insert update delete</li>
+<li>DDL     create drop alter</li>
+<li>TCL （Transaction Control Language）事务控制语言：commit  rollback</li>
+</ul>
+<h6 id="DQL部分"><a href="#DQL部分" class="headerlink" title="DQL部分"></a>DQL部分</h6><ul>
+<li>SELECT - 从数据库表中获取数据  语法： SELECT 列名称 FROM 表名称</li>
+<li>SELECT last_name AS 姓， first_name AS 名 FROM employees; (AS可以为空格)</li>
+<li>WHERE与条件查询</li>
+</ul>
+<h6 id="DML部分"><a href="#DML部分" class="headerlink" title="DML部分"></a>DML部分</h6><ul>
+<li>UPDATE - 更新数据库表中的数据</li>
+<li>DELETE - 从数据库表中删除数据</li>
+<li>INSERT INTO - 向数据库表中插入数据</li>
+</ul>
+<h6 id="DDL部分"><a href="#DDL部分" class="headerlink" title="DDL部分"></a>DDL部分</h6><p>  SQL 的数据定义语言 (DDL) 部分使我们有能力创建或删除表格。我们也可以定义索引（键），规定表之间的链接，以及施加表间的约束。</p>
+<ul>
+<li>CREATE DATABASE - 创建新数据库</li>
+<li>ALTER DATABASE - 修改数据库</li>
+<li>CREATE TABLE - 创建新表</li>
+<li>ALTER TABLE - 变更（改变）数据库表</li>
+<li>DROP TABLE - 删除表</li>
+<li>CREATE INDEX - 创建索引（搜索键）</li>
+<li>DROP INDEX - 删除索引</li>
+</ul>
+<h6 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h6><ul>
+<li><p>distinct<br>语法 ：SELECT DISTINCT 列名称 FROM 表名称<br>用于只返回唯一不同的值</p>
+</li>
+<li><p>AND 和 OR 运算符<br>AND 和 OR 可在 WHERE 子语句中把两个或多个条件结合起来。</p>
+</li>
+<li><p>ORDER BY<br>ORDER BY 语句用于根据指定的列对结果集进行排序。<br>ORDER BY 语句默认按照升序对记录进行排序。<br>如果您希望按照降序对记录进行排序，可以使用 DESC 关键字。<br>eg：SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC以逆字母顺序显示公司名称</p>
+</li>
+</ul>
+<p>SELECT Company, OrderNumber FROM Orders ORDER BY Company DESC, OrderNumber ASC以逆字母顺序显示公司名称，并以数字顺序显示顺序号：</p>
+<ul>
+<li>INSERT INTO</li>
+</ul>
+<p>INSERT INTO 表名称 VALUES (值1, 值2,….)</p>
+<p>也可以指定要插入数据的列：<br>INSERT INTO table_name (列1, 列2,…) VALUES (值1, 值2,….)</p>
+<ul>
+<li>UPDATE</li>
+</ul>
+<p>UPDATE 表名称 SET 列名称 = 新值 WHERE 列名称 = 某值</p>
+<ul>
+<li>DELETE</li>
+</ul>
+<p>DELETE 语句用于删除表中的行。<br>DELETE FROM 表名称 WHERE 列名称 = 值</p>
+<p>可以在不删除表的情况下删除所有的行。这意味着表的结构、属性和索引都是完整的：DELETE FROM table_name 或者 DELETE * FROM table_name</p>
+<ul>
+<li>查询员工名和姓连接成一个字段，并显示为 姓名<br>SELECT<br>  CONCAT(last_name,first_name) AS 姓名<br>FROM<br>  employees;</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SQL/" rel="tag"># SQL</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/15/tmallwall/" rel="prev" title="天猫品牌墙HTML5新特效实战">
+                天猫品牌墙HTML5新特效实战 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Orwell" />
+            
+              <p class="site-author-name" itemprop="name">Orwell</p>
+              <p class="site-description motion-element" itemprop="description">React Up!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理"><span class="nav-number">1.</span> <span class="nav-text">数据库的好处，1持久化数据到本地，2可以实现结构化查询，方便管理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL是用于访问和处理数据库的标准的计算机语言。SQL-指结构化查询语言，使我们有能力访问数据库"><span class="nav-number">2.</span> <span class="nav-text">SQL是用于访问和处理数据库的标准的计算机语言。SQL 指结构化查询语言，使我们有能力访问数据库</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RDBMS-指的是关系型数据库管理系统。RDBMS-中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。"><span class="nav-number">3.</span> <span class="nav-text">RDBMS 指的是关系型数据库管理系统。RDBMS 中的数据存储在被称为表（tables）的数据库对象中。表是相关的数据项的集合，它由列和行组成。</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#SQL语言的分类"><span class="nav-number">4.</span> <span class="nav-text">SQL语言的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#DQL部分"><span class="nav-number">4.1.</span> <span class="nav-text">DQL部分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DML部分"><span class="nav-number">4.2.</span> <span class="nav-text">DML部分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#DDL部分"><span class="nav-number">4.3.</span> <span class="nav-text">DDL部分</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#语句"><span class="nav-number">4.4.</span> <span class="nav-text">语句</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Orwell</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
