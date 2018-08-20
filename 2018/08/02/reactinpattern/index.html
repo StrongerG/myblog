@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Summary Of React-In-PatternsProps React is not defining strictly what should be passed as a prop. It may be whatever we want. It could even be another component: 12345678function SomethingElse(&amp;#123;">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React-in-pattern以及Airbnb-React规范">
+<meta property="og:url" content="http://yoursite.com/2018/08/02/reactinpattern/index.html">
+<meta property="og:site_name" content="Orwell&#39;s Notes">
+<meta property="og:description" content="Summary Of React-In-PatternsProps React is not defining strictly what should be passed as a prop. It may be whatever we want. It could even be another component: 12345678function SomethingElse(&amp;#123;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-20T07:09:18.175Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React-in-pattern以及Airbnb-React规范">
+<meta name="twitter:description" content="Summary Of React-In-PatternsProps React is not defining strictly what should be passed as a prop. It may be whatever we want. It could even be another component: 12345678function SomethingElse(&amp;#123;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/02/reactinpattern/"/>
+
+
+
+
+
+  <title>React-in-pattern以及Airbnb-React规范 | Orwell's Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Orwell's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/02/reactinpattern/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Orwell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Orwell's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React-in-pattern以及Airbnb-React规范</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-02T17:32:45+08:00">
+                2018-08-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Summary-Of-React-In-Patterns"><a href="#Summary-Of-React-In-Patterns" class="headerlink" title="Summary Of React-In-Patterns"></a>Summary Of <a href="https://github.com/krasimir/react-in-patterns" target="_blank" rel="noopener">React-In-Patterns</a></h1><h3 id="Props"><a href="#Props" class="headerlink" title="Props"></a>Props</h3><ul>
+<li><p>React is not defining strictly what should be passed as a prop. It may be whatever we want. It could even be another component:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SomethingElse</span>(<span class="params">&#123; answer &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>The answer is &#123; answer &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Answer</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>23<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// use in somewhere</span></span><br><span class="line">&lt;SomethingElse answer=&#123;&lt;Answer /&gt;&#125; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>There is also a props.children property that gives us access to the child components passed by the owner of the component which is useful:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Title</span>(<span class="params">&#123; text, children &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;h1&gt;</span><br><span class="line">      &#123; text &#125;</span><br><span class="line">  <span class="comment">// obviously child could be a component!!!</span></span><br><span class="line">      &#123; children &#125;</span><br><span class="line">    &lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp">function App() &#123;</span></span><br><span class="line"><span class="regexp">  return (</span></span><br><span class="line"><span class="regexp">    &lt;Title text="Hello React"&gt;</span></span><br><span class="line"><span class="regexp">      &lt;span&gt;community&lt;/</span>span&gt;</span><br><span class="line">    &lt;<span class="regexp">/Title&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Function as a children</p>
+</li>
+</ul>
+<p>Refer to example when we have some knowledge in the parent<br>component and don’t necessary want to send it down to<br>children.</p>
+<p>The example below prints a list of TODOs. The<br>App component has all the data and knows how to<br>determine whether a TODO is completed or not. The<br>TodoList component simply encapsulate the needed<br>HTML markup.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> todos = [</span><br><span class="line">    &#123;<span class="attr">label</span>: <span class="string">'write tests'</span>, <span class="attr">status</span>: <span class="string">'done'</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">label</span>: <span class="string">'sent report'</span>, <span class="attr">status</span>: <span class="string">'progress'</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">label</span>: <span class="string">'answer emails'</span>, <span class="attr">status</span>: <span class="string">'done'</span>&#125;</span><br><span class="line">  ];</span><br><span class="line">  <span class="keyword">const</span> isCompleted = <span class="function"><span class="params">todo</span> =&gt;</span> todo.status === <span class="string">'done'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;TodoList todos=&#123;todos&#125;&gt;</span><br><span class="line">      &#123;</span><br><span class="line">        todo =&gt; isCompleted(todo) ?</span><br><span class="line">          &lt;b&gt;&#123; todo.label &#125;&lt;<span class="regexp">/b&gt; : &#123; todo.label &#125;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>TodoList&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TodoList</span>(<span class="params">&#123; todos, children &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;section &gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &#123;</span><br><span class="line">          todos.map(<span class="function">(<span class="params">todo, i</span>) =&gt;</span> (</span><br><span class="line">            &lt;li key=&#123;i&#125;&gt;&#123; children(todo) &#125;&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">          ))</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">      &lt;/u</span>l&gt;</span><br><span class="line">    &lt;<span class="regexp">/section&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>Notice</strong> how the App component doesn’t expose the<br>structure of the data. TodoList has no idea that there is<br>label or status properties.</p>
+<ul>
+<li>render prop pattern</li>
+</ul>
+<p>The so called render prop pattern is almost the same<br>except that we use the render prop and not children<br>for rendering the todo.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> todos = [</span><br><span class="line">    &#123;<span class="attr">label</span>: <span class="string">'write tests'</span>, <span class="attr">status</span>: <span class="string">'done'</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">label</span>: <span class="string">'sent report'</span>, <span class="attr">status</span>: <span class="string">'progress'</span>&#125;,</span><br><span class="line">    &#123;<span class="attr">label</span>: <span class="string">'answer emails'</span>, <span class="attr">status</span>: <span class="string">'done'</span>&#125;</span><br><span class="line">  ];</span><br><span class="line">  <span class="keyword">const</span> isCompleted = <span class="function"><span class="params">todo</span> =&gt;</span> todo.status === <span class="string">'done'</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;TodoList </span><br><span class="line">      todos=&#123;todos&#125; </span><br><span class="line">      render=&#123;</span><br><span class="line">        todo =&gt; isCompleted(todo) ?</span><br><span class="line">          &lt;b&gt;&#123; todo.label &#125;&lt;<span class="regexp">/b&gt; : &#123; todo.label &#125;</span></span><br><span class="line"><span class="regexp">      &#125;</span></span><br><span class="line"><span class="regexp">    /</span>&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TodoList</span>(<span class="params">&#123; todos, render &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;section &gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &#123;</span><br><span class="line">          todos.map(<span class="function">(<span class="params">todo, i</span>) =&gt;</span> (</span><br><span class="line">            &lt;li key=&#123;i&#125;&gt;&#123; render(todo) &#125;&lt;<span class="regexp">/li&gt;</span></span><br><span class="line"><span class="regexp">          ))</span></span><br><span class="line"><span class="regexp">        &#125;</span></span><br><span class="line"><span class="regexp">      &lt;/u</span>l&gt;</span><br><span class="line">    &lt;<span class="regexp">/section&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="Styling"><a href="#Styling" class="headerlink" title="Styling"></a>Styling</h3><ul>
+<li>clssName</li>
+</ul>
+<p>JSX syntax is pretty close to HTML syntax. As such we<br>have almost the same tag attributes and we may still style<br>using CSS classes. Classes which are defined in an<br>external .css file. The only caveat is using className<br>and not class . For example:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 className=<span class="string">"title"</span>&gt;Styling&lt;<span class="regexp">/h1&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Inline styling</li>
+</ul>
+<p>The inline styling works just fine. Similarly to HTML we are<br>free to pass styles directly via a style attribute.<br>However, while in HTML the value is a string, in JSX it<br>must be an object.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> inlineStyles = &#123;</span><br><span class="line">  color: <span class="string">'red'</span>,</span><br><span class="line">  fontSize: <span class="string">'10px'</span>,</span><br><span class="line">  marginTop: <span class="string">'2em'</span>,</span><br><span class="line">  <span class="string">'border-top'</span>: <span class="string">'solid 1px #000'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">&lt;h2 style=&#123; inlineStyles &#125;&gt;Inline styling&lt;<span class="regexp">/h2&gt;</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>CSS modules</li>
+</ul>
+<p>That is not possible by default but with CSS modules we<br>may import directly a plain CSS file and use the classes<br>inside.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* style.css */</span></span><br><span class="line">.title &#123;</span><br><span class="line">  color: green;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// App.jsx</span></span><br><span class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">"./style.css"</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&#123;</span> <span class="attr">styles.title</span> &#125;&gt;</span>Hello world<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Styled-components</li>
+</ul>
+<p>Instead of<br>inlining styles the library provides a React component. We<br>then use this component to represent a specific look and<br>feel. For example, we may create a Link component that<br>has certain styling and use that instead of the <a> tag.<br>Abosolutely, <a> can be the component that we create.<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> styled <span class="keyword">from</span> <span class="string">'styled-components'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Link = styled.a<span class="string">`</span></span><br><span class="line"><span class="string">  text-decoration: none;</span></span><br><span class="line"><span class="string">  padding: 4px;</span></span><br><span class="line"><span class="string">  border: solid 1px #999;</span></span><br><span class="line"><span class="string">  color: black;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line">&lt;Link href=<span class="string">'http://google.com'</span>&gt;Google&lt;<span class="regexp">/Link&gt;</span></span><br></pre></td></tr></table></figure></a></a></p>
+<p>We may still use the Link component but change the text<br>color like so:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> AnotherLink = styled(Link)<span class="string">`</span></span><br><span class="line"><span class="string">  color: blue;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line"></span><br><span class="line">&lt;AnotherLink href=<span class="string">'http://facebook.com'</span>&gt;Facebook&lt;<span class="regexp">/AnotherLink&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Summary-Of-Airbnb-React-Style-Guide"><a href="#Summary-Of-Airbnb-React-Style-Guide" class="headerlink" title="Summary Of Airbnb React Style Guide"></a>Summary Of <a href="https://github.com/airbnb/javascript/tree/master/react#table-of-contents" target="_blank" rel="noopener">Airbnb React Style Guide</a></h1><h3 id="Basic-Rules"><a href="#Basic-Rules" class="headerlink" title="Basic Rules"></a>Basic Rules</h3><ul>
+<li>Only include one React component per file.<ul>
+<li>However, multiple Stateless, or Pure, Components are allowed per file.</li>
+</ul>
+</li>
+<li>Always use JSX syntax. Do not use React.createElement unless you’re initializing the app from a file that is not JSX.</li>
+<li>Do not use Mixins.</li>
+</ul>
+<h3 id="Class-vs-React-createClass-vs-stateless"><a href="#Class-vs-React-createClass-vs-stateless" class="headerlink" title="Class vs React.createClass vs stateless"></a>Class vs React.createClass vs stateless</h3><ul>
+<li>If you have internal state and/or refs, prefer class extends React.Component over React.createClass.</li>
+<li>And if you don’t have state or refs, prefer normal functions (not arrow functions) over classes:<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Listing</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123; this.state.hello &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// not arrow functions best</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Listing</span>(<span class="params">&#123; hello &#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123; hello &#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Nameing"><a href="#Nameing" class="headerlink" title="Nameing"></a>Nameing</h3><ul>
+<li>Extensions: Use .jsx extension for React.components.</li>
+<li>Filename: Use PascalCase for filenames. eg: ReservationCard.jsx.</li>
+<li><p>Reference Naming: Use PascalCase for React components and camelCase for their instances. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// good</span></span><br><span class="line"><span class="keyword">import</span> ReservationCard <span class="keyword">from</span> <span class="string">'./Reservation'</span>;</span><br><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="keyword">import</span> ReservationCard <span class="keyword">from</span> <span class="string">'./ReservationCard'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line"><span class="keyword">const</span> reservationItem = <span class="xml"><span class="tag">&lt;<span class="name">ReservationCard</span> /&gt;</span>;</span></span><br><span class="line"><span class="xml">// bad</span></span><br><span class="line"><span class="xml">const ReservationItem = <span class="tag">&lt;<span class="name">ReservationCard</span> /&gt;</span>;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Component Naming: Use the filename as the component name. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="keyword">import</span> Footer <span class="keyword">from</span> <span class="string">'./Footer/Footer'</span>;</span><br><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="keyword">import</span> Footer <span class="keyword">from</span> <span class="string">'./Footer/index'</span>;</span><br><span class="line"><span class="comment">// good</span></span><br><span class="line"><span class="keyword">import</span> Footer <span class="keyword">from</span> <span class="string">'./Footer'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Props Naming: Avoid using DOM component prop names for different purposes.</p>
+</li>
+<li>Higher-order Component Naming …</li>
+</ul>
+<h3 id="Alignment"><a href="#Alignment" class="headerlink" title="Alignment"></a>Alignment</h3><ul>
+<li>Follow these alignment styles for JSX syntax. <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo superLongParam=<span class="string">"bar"</span></span><br><span class="line">     anotherSuperLongParam=<span class="string">"baz"</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  superLongParam=<span class="string">"bar"</span></span><br><span class="line">  anotherSuperLongParam=<span class="string">"baz"</span></span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// if props fit in one line then keep it on the same line</span></span><br><span class="line">&lt;Foo bar=<span class="string">"bar"</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// children get indented normally</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  superLongParam=<span class="string">"bar"</span></span><br><span class="line">  anotherSuperLongParam=<span class="string">"baz"</span></span><br><span class="line">&gt;</span><br><span class="line">  &lt;Quux /&gt;</span><br><span class="line">&lt;<span class="regexp">/Foo&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Quotes"><a href="#Quotes" class="headerlink" title="Quotes"></a>Quotes</h3><ul>
+<li>Always use double quotes (“) for JSX attributes, but single quotes (‘) for all other JS. <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo bar=<span class="string">'bar'</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo bar=<span class="string">"bar"</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo style=&#123;&#123; <span class="attr">left</span>: <span class="string">"20px"</span> &#125;&#125; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo style=&#123;&#123; <span class="attr">left</span>: <span class="string">'20px'</span> &#125;&#125; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Spacing"><a href="#Spacing" class="headerlink" title="Spacing"></a>Spacing</h3><ul>
+<li><p>Always include a single space in your self-closing tag. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// very bad</span></span><br><span class="line">&lt;Foo                 /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo</span><br><span class="line"> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Do not pad JSX curly braces with spaces. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo bar=&#123; baz &#125; /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo bar=&#123;baz&#125; /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Props-1"><a href="#Props-1" class="headerlink" title="Props"></a>Props</h3><ul>
+<li><p>Always use camelCase for prop names.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  UserName=<span class="string">"hello"</span></span><br><span class="line">  phone_number=&#123;<span class="number">12345678</span>&#125;</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  userName=<span class="string">"hello"</span></span><br><span class="line">  phoneNumber=&#123;<span class="number">12345678</span>&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Omit the value of the prop when it is explicitly true.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  hidden=&#123;<span class="literal">true</span>&#125;</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  hidden</span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo hidden /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Always include an alt prop on <img> tags. If the image is presentational, alt can be an empty string or the <img> must have role=”presentation”.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;img src=<span class="string">"hello.jpg"</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;img src=<span class="string">"hello.jpg"</span> alt=<span class="string">"Me waving hello"</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;img src=<span class="string">"hello.jpg"</span> alt=<span class="string">""</span> /&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;img src=<span class="string">"hello.jpg"</span> role=<span class="string">"presentation"</span> /&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Avoid using an array index as key prop, prefer a unique ID.</strong> (Why?)</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&#123;todos.map(<span class="function">(<span class="params">todo, index</span>) =&gt;</span></span><br><span class="line">  &lt;Todo</span><br><span class="line">    &#123;...todo&#125;</span><br><span class="line">    key=&#123;index&#125;</span><br><span class="line">  /&gt;</span><br><span class="line">)&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&#123;todos.map(<span class="function"><span class="params">todo</span> =&gt;</span> (</span><br><span class="line">  &lt;Todo</span><br><span class="line">    &#123;...todo&#125;</span><br><span class="line">    key=&#123;todo.id&#125;</span><br><span class="line">  /&gt;</span><br><span class="line">))&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Refs"><a href="#Refs" class="headerlink" title="Refs"></a>Refs</h3><ul>
+<li>Always use ref callbacks.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  ref=<span class="string">"myRef"</span></span><br><span class="line">/&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">&lt;Foo</span><br><span class="line">  ref=&#123;(ref) =&gt; &#123; <span class="keyword">this</span>.myRef = ref; &#125;&#125;</span><br><span class="line">/&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Parentheses"><a href="#Parentheses" class="headerlink" title="Parentheses"></a>Parentheses</h3><ul>
+<li>Wrap JSX tags in parentheses when they span more than one line.<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line">render() &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span> <span class="attr">variant</span>=<span class="string">"long body"</span> <span class="attr">foo</span>=<span class="string">"bar"</span>&gt;</span></span></span><br><span class="line"><span class="xml">           <span class="tag">&lt;<span class="name">MyChild</span> /&gt;</span></span></span><br><span class="line"><span class="xml">         <span class="tag">&lt;/<span class="name">MyComponent</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// good</span></span><br><span class="line">render() &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;MyComponent variant=<span class="string">"long body"</span> foo=<span class="string">"bar"</span>&gt;</span><br><span class="line">      &lt;MyChild /&gt;</span><br><span class="line">    &lt;<span class="regexp">/MyComponent&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">/</span><span class="regexp">/ good, when single line</span></span><br><span class="line"><span class="regexp">render() &#123;</span></span><br><span class="line"><span class="regexp">  const body = &lt;div&gt;hello&lt;/</span>div&gt;;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">MyComponent</span>&gt;</span>&#123;body&#125;<span class="tag">&lt;/<span class="name">MyComponent</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Tags"><a href="#Tags" class="headerlink" title="Tags"></a>Tags</h3><ul>
+<li>Always self-close tags that have no children.</li>
+<li>If your component has multi-line properties, close its tag on a new line. </li>
+</ul>
+<h3 id="Methods"><a href="#Methods" class="headerlink" title="Methods"></a>Methods</h3><ul>
+<li><p>Use arrow functions to close over local variables.</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">ItemList</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;props.items.map(<span class="function">(<span class="params">item, index</span>) =&gt;</span> (</span><br><span class="line">        &lt;Item</span><br><span class="line">          key=&#123;item.key&#125;</span><br><span class="line">          onClick=&#123;() =&gt; doSomethingWith(item.name, index)&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      ))&#125;</span><br><span class="line">    &lt;<span class="regexp">/ul&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Bind event handlers for the render method in the constructor. </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// bad</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  onClickDiv() &#123;</span><br><span class="line">    <span class="comment">// do stuff</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// A bind call in the render path creates a brand new function on every single render.</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;this.onClickDiv.bind(this)&#125;</span> /&gt;</span>;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml">&#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">// good</span></span><br><span class="line"><span class="xml">class extends React.Component &#123;</span></span><br><span class="line"><span class="xml">  constructor(props) &#123;</span></span><br><span class="line"><span class="xml">    super(props);</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">    this.onClickDiv = this.onClickDiv.bind(this);</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">  onClickDiv() &#123;</span></span><br><span class="line"><span class="xml">    // do stuff</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">  render() &#123;</span></span><br><span class="line">    return &lt;div onClick=&#123;this.onClickDiv&#125; /&gt;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="Ordering"><a href="#Ordering" class="headerlink" title="Ordering"></a>Ordering</h3><ul>
+<li>Ordering for class extends React.Component:</li>
+</ul>
+<ol>
+<li>optional static methods</li>
+<li>constructor</li>
+<li>getChildContext</li>
+<li>componentWillMount</li>
+<li>componentDidMount</li>
+<li>componentWillReceiveProps</li>
+<li>shouldComponentUpdate</li>
+<li>componentWillUpdate</li>
+<li>componentDidUpdate</li>
+<li>componentWillUnmount</li>
+<li>clickHandlers or eventHandlers like onClickSubmit() or onChangeDescription()</li>
+<li>getter methods for render like getSelectReason() or getFooterContent()</li>
+<li>optional render methods like renderNavigation() or renderProfilePicture()</li>
+<li>render</li>
+</ol>
+<ul>
+<li>How to define propTypes, defaultProps, contextTypes, etc…<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> PropTypes <span class="keyword">from</span> <span class="string">'prop-types'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> propTypes = &#123;</span><br><span class="line">  id: PropTypes.number.isRequired,</span><br><span class="line">  url: PropTypes.string.isRequired,</span><br><span class="line">  text: PropTypes.string,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> defaultProps = &#123;</span><br><span class="line">  text: <span class="string">'Hello World'</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Link</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> methodsAreOk() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">&#123;this.props.url&#125;</span> <span class="attr">data-id</span>=<span class="string">&#123;this.props.id&#125;</span>&gt;</span>&#123;this.props.text&#125;<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Link.propTypes = propTypes;</span><br><span class="line">Link.defaultProps = defaultProps;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Link;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/27/promise/" rel="next" title="实现一个完备 Promise">
+                <i class="fa fa-chevron-left"></i> 实现一个完备 Promise
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/05/react1/" rel="prev" title="React初探">
+                React初探 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Orwell" />
+            
+              <p class="site-author-name" itemprop="name">Orwell</p>
+              <p class="site-description motion-element" itemprop="description">React Up!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary-Of-React-In-Patterns"><span class="nav-number">1.</span> <span class="nav-text">Summary Of React-In-Patterns</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Props"><span class="nav-number">1.0.1.</span> <span class="nav-text">Props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Styling"><span class="nav-number">1.0.2.</span> <span class="nav-text">Styling</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Summary-Of-Airbnb-React-Style-Guide"><span class="nav-number">2.</span> <span class="nav-text">Summary Of Airbnb React Style Guide</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Basic-Rules"><span class="nav-number">2.0.1.</span> <span class="nav-text">Basic Rules</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-vs-React-createClass-vs-stateless"><span class="nav-number">2.0.2.</span> <span class="nav-text">Class vs React.createClass vs stateless</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nameing"><span class="nav-number">2.0.3.</span> <span class="nav-text">Nameing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Alignment"><span class="nav-number">2.0.4.</span> <span class="nav-text">Alignment</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Quotes"><span class="nav-number">2.0.5.</span> <span class="nav-text">Quotes</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spacing"><span class="nav-number">2.0.6.</span> <span class="nav-text">Spacing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Props-1"><span class="nav-number">2.0.7.</span> <span class="nav-text">Props</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Refs"><span class="nav-number">2.0.8.</span> <span class="nav-text">Refs</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parentheses"><span class="nav-number">2.0.9.</span> <span class="nav-text">Parentheses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tags"><span class="nav-number">2.0.10.</span> <span class="nav-text">Tags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Methods"><span class="nav-number">2.0.11.</span> <span class="nav-text">Methods</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ordering"><span class="nav-number">2.0.12.</span> <span class="nav-text">Ordering</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Orwell</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

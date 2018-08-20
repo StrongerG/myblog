@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="React初探一、React是什么 React可以被看做一个UI层框架，专注于视图层。它把用户界面抽象成一个个组件，如按钮组件 Button、对话框组件 Dialog等，通过组合这些组件，最终得到功能丰富、可交互的页面。  二、Virtual DOM 在传统页面的开发模式中，每次需要更新页面时，都要手动操作 DOM 来进行更新,而 DOM 操作非常昂贵,性能消耗最大的就是 DOM 操作，而且这部分">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React初探">
+<meta property="og:url" content="http://yoursite.com/2018/08/05/react1/index.html">
+<meta property="og:site_name" content="Orwell&#39;s Notes">
+<meta property="og:description" content="React初探一、React是什么 React可以被看做一个UI层框架，专注于视图层。它把用户界面抽象成一个个组件，如按钮组件 Button、对话框组件 Dialog等，通过组合这些组件，最终得到功能丰富、可交互的页面。  二、Virtual DOM 在传统页面的开发模式中，每次需要更新页面时，都要手动操作 DOM 来进行更新,而 DOM 操作非常昂贵,性能消耗最大的就是 DOM 操作，而且这部分">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/images/react1.jpg">
+<meta property="og:image" content="http://yoursite.com/images/reactdom.PNG">
+<meta property="og:image" content="http://yoursite.com/images/reactvirtualdom.PNG">
+<meta property="og:image" content="http://yoursite.com/images/components.PNG">
+<meta property="og:image" content="http://yoursite.com/images/react-lifecycle.PNG">
+<meta property="og:updated_time" content="2018-08-20T07:00:41.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React初探">
+<meta name="twitter:description" content="React初探一、React是什么 React可以被看做一个UI层框架，专注于视图层。它把用户界面抽象成一个个组件，如按钮组件 Button、对话框组件 Dialog等，通过组合这些组件，最终得到功能丰富、可交互的页面。  二、Virtual DOM 在传统页面的开发模式中，每次需要更新页面时，都要手动操作 DOM 来进行更新,而 DOM 操作非常昂贵,性能消耗最大的就是 DOM 操作，而且这部分">
+<meta name="twitter:image" content="http://yoursite.com/images/react1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/08/05/react1/"/>
+
+
+
+
+
+  <title>React初探 | Orwell's Notes</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Orwell's Notes</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/react1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Orwell">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Orwell's Notes">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T21:31:01+08:00">
+                2018-08-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="React初探"><a href="#React初探" class="headerlink" title="React初探"></a>React初探</h2><p><strong>一、React是什么</strong></p>
+<p>React可以被看做一个UI层框架，专注于视图层。它把用户界面抽象成一个个组件，如按钮组件 Button、对话框组件 Dialog等，通过组合这些组件，最终得到功能丰富、可交互的页面。</p>
+<p><img src="/images/react1.jpg" alt="React"></p>
+<p><strong>二、Virtual DOM</strong></p>
+<p>在传统页面的开发模式中，每次需要更新页面时，都要手动操作 DOM 来进行更新,而 DOM 操作非常昂贵,性能消耗最大的就是 DOM 操作，而且这部分代码会让整体项目的代码变得难以维护。React 把真实 DOM 树转换成 JavaScript 对象树，也就是 Virtual DOM。</p>
+<p><img src="/images/reactdom.PNG" alt="React-dom"></p>
+<p>每次数据更新后，重新计算 Virtual DOM，并和上一次生成的 Virtual DOM 做对比，对发生变化的部分做批量更新。React 也提供了直观的 shouldComponentUpdate 生命周期回调，来减少数据变化后不必要的Virtual DOM 对比过程，以保证性能。</p>
+<p><img src="/images/reactvirtualdom.PNG" alt="React-virtual-dom"></p>
+<p><strong>三、JSX</strong></p>
+<p>React 为方便 View 层组件化，承载了构建 HTML 结构化页面的职责。<br>React通过JSX 将 HTML 语法直接加入到 JavaScript 代码中，再通过翻译器转换到纯JavaScript 后由浏览器执行。在实际开发中，JSX 在产品打包阶段都已经编译成纯 JavaScript，不会带来任何副作用，反而会让代码更加直观并易于维护。</p>
+<p>React实际上将元素或者组件表示成了纯粹的 JSON 对象，这样可以方便的构建 Virtual DOM 元素，在 React 中，到处都是可以复用的元素，这些元素并不是真实的实例，它只是让 React 告诉开发者想要在屏幕上显示什么。我们无法通过方法去调用这些元素，它们只是不可变的描述对象。<br>如button标签：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">"btn btn-blue"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">em</span>&gt;</span>Confirm<span class="tag">&lt;/<span class="name">em</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>转换成JSON：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  type: <span class="string">'button'</span>,</span><br><span class="line">  props: &#123;</span><br><span class="line">    className: <span class="string">'btn btn-blue'</span>,</span><br><span class="line">    children: [&#123;</span><br><span class="line">      type: <span class="string">'em'</span>,</span><br><span class="line">      props: &#123;</span><br><span class="line">        children: <span class="string">'Confirm'</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>四、组件</strong></p>
+<p>Web Components 标准通过自定义元素的方式实现组件化，每个自定义元素可以定义自己对外提供的属性、方法，还有事件，内部可以像写一个页面一样，专注于实现功能来完成对组件的封装。而 React 的本质就是关心元素的构成，React 组件即为组件元素。组件元素被描述成纯粹的 JSON 对象，意味着可以使用方法或是类来构建。</p>
+<p>React 组件基本上由 3 个部分组成——属性（props）、状态（state）以及生命周期方法，React 组件可以接收参数，也可能有自身状态。一旦接收到的参数或自身状态有所改变，React 组件就会执行相应的生命周期方法，最后渲染。</p>
+<p><img src="/images/components.PNG" alt="React-Components"></p>
+<p>state 与 props 是 React 组件中最重要的概念。如果顶层组件初始化 props，那么 React 会向下遍历整棵组件树，重新尝试渲染所有相关的子组件。而 state 只关心每个组件自己内部的状态，这些状态只能在组件内改变。把组件看成一个函数，那么它接受了 props 作为参数，内部由 state作为函数的内部参数，返回一个 Virtual DOM 的实现。</p>
+<p><strong>五、组件的生命周期方法重点</strong></p>
+<p>如果组件是由父组件更新 props 而更新的，那么在 shouldComponentUpdate 之前会先执行componentWillReceiveProps 方法。此方法可以作为 React 在 props 传入后，渲染之前  setState 的机会。在此方法中调用  setState 是不会二次渲染的。</p>
+<p>组件在初次渲染之后再次更新时，React 不会把整个组件重新渲染一次，而会用它高效的DOM diff 算法做局部的更新。这也是 React 最大的亮点之一</p>
+<p><img src="/images/react-lifecycle.PNG" alt="React-Lifecycle"></p>
+<h2 id="React事件系统"><a href="#React事件系统" class="headerlink" title="React事件系统"></a>React事件系统</h2><p><strong>一、React合成事件的绑定和实现机制</strong></p>
+<p>React 事件的绑定方式在写法上与原生的 HTML 事件监听器属性很相似，并且含义和触发的场景也全都是一致的。但 React 实际上仅仅是借鉴了这种写法，React 并不会像 DOM0 级事件那样将事件处理器直接绑定到 HTML 元素之上。</p>
+<p>React 基于 Virtual DOM 实现了一个  SyntheticEvent （合成事件）层，我们所定义的事件处理器会接收到一个  SyntheticEvent 对象的实例，它完全符合 W3C 标准。Virtual DOM 在内存中是以对象的形式存在的，如果想要在这些对象上添加事件，就会非常简单。<strong>所有事件都自动绑定到最外层上。</strong></p>
+<p>在 React 底层，主要对合成事件做了两件事：事件委派和自动绑定。</p>
+<ul>
+<li><p>它并不会把事件处理函数直接绑定到真实的节点上，而是把所有事件绑定到结构的最外层，使用一个统一的事件监听器，这个事件监听器上维持了一个映射来保存所有组件内部的事件监听和处理函数。当组件挂载或卸载时，只是在这个统一的事件监听器上插入或删除一些对象；当事件发生时，首先被这个统一的事件监听器处理，然后在映射里找到真正的事件处理函数并调用。这样做简化了事件处理和回收机制，效率也有很大提升。</p>
+</li>
+<li><p>在 React 组件中，每个方法的上下文都会指向该组件的实例，即自动绑定  this 为当前组件。而且 React 还会对这种引用进行缓存，以达到 CPU 和内存的最优化。在使用 ES6 classes 或者纯函数时，这种自动绑定就不复存在了，我们需要手动实现  this 的绑定</p>
+<ul>
+<li>使用 bind() 方法</li>
+<li>在组件的构造器内完成 this 的绑定，这种绑定方式的好处在于仅需要进行一次绑定，而不需要每次调用事件监听器时去执行绑定操作</li>
+<li>事件使用箭头函数定义</li>
+</ul>
+</li>
+</ul>
+<p><strong>二、React中使用原生事件</strong></p>
+<p>React 提供了很好用的合成事件系统，但这并不意味着在 React 架构下无法使用原生事件。React 提供了完备的生命周期方法，其中  componentDidMount 会在组件已经完成安装并且在浏览器中存在真实的 DOM 后调用，此时我们就可以完成原生事件的绑定。需要注意的是，在 React 中使用 DOM 原生事件时，一定要在组件卸载时手动移除，否则可能会出现内存泄漏的问题。而使用合成事件系统时则不需要，因为 React 内部已经帮你妥善地处理了。</p>
+<p>并且还有很多应用场景只能借助原生事件的帮助才能完成。但由于React合成事件的特殊性，最好尽量避免在 React 中混用合成事件和原生 DOM 事件。实际上，React 的合成事件系统只是原生 DOM 事件系统的一个子集。它仅仅实现了 DOM Level 3 的事件接口，并且统一了浏览器间的兼容问题。有些事件 React 并没有实现，或者受某些限制没办法去实现，比如  window 的  resize 事件。对于无法使用 React 合成事件的场景，我们还需要使用原生事件来完成。</p>
+<p>一个例子，在 Web 页面中添加一个使用移动设备扫描二维码的功能，在点击按钮时显示二维码，点击非二维码区域时将其隐藏起来。示例代码如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">QrCode</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.handleClick = <span class="keyword">this</span>.handleClick.bind(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.handleClickQr = <span class="keyword">this</span>.handleClickQr.bind(<span class="keyword">this</span>);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      active: <span class="literal">false</span>,</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    <span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, e =&gt; &#123;</span><br><span class="line">      <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      active: <span class="literal">false</span>,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  componentWillUnmount() &#123;</span><br><span class="line">    <span class="built_in">document</span>.body.removeEventListener(<span class="string">'click'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  handleClick() &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">      active: !<span class="keyword">this</span>.state.active,</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line">  handleClickQr(e) &#123;</span><br><span class="line">    e.stopPropagation();</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div className=<span class="string">"qr-wrapper"</span>&gt;</span><br><span class="line">      &lt;button className=<span class="string">"qr"</span> onClick=&#123;<span class="keyword">this</span>.handleClick&#125;&gt;二维码&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;div</span></span><br><span class="line"><span class="regexp">    className="code"</span></span><br><span class="line"><span class="regexp">    style=&#123;&#123; display: this.state.active ? 'block' : 'none' &#125;&#125;</span></span><br><span class="line"><span class="regexp">    onClick=&#123;this.handleClickQr&#125;</span></span><br><span class="line"><span class="regexp">  &gt;</span></span><br><span class="line"><span class="regexp">  &lt;img src="qr.jpg" alt="qr" /</span>&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码的逻辑很简单，点击按钮可以切换二维码的显示与隐藏，而在按钮之外的区域同样可以达到隐藏的效果。然而，我们无法在组件中将事件绑定到  body 上，为  body 在组件范围之外，只能使用原生绑定事件来实现。</p>
+<p>逻辑似乎很简单，但 React 所表现的似乎与你所想的并不一致，实际效果是在你点击二维码区域时二维码依然会隐藏起来。原因也很简单，就是 React 合成事件系统的委托机制，在合成事件内部仅仅对最外层的容器进行了绑定，并且依赖事件的冒泡机制完成了委派。也就是说，事件并没有直接绑定到  div.qr 元素上，所以在这里使用  e.stopPropagation() 并没有用。</p>
+<p>解决办法一：通过  e.target 判断来避免<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() &#123;</span><br><span class="line">  <span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, e =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (e.target &amp;&amp; e.target.matches(<span class="string">'div.code'</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    active: <span class="literal">false</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>解决办法二：不要将合成事件与原生事件混用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">componentDidMount() &#123;</span><br><span class="line">  <span class="built_in">document</span>.body.addEventListener(<span class="string">'click'</span>, e =&gt; &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">    active: <span class="literal">false</span>,</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;);</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">'.code'</span>).addEventListener(<span class="string">'click'</span>, e =&gt; &#123;</span><br><span class="line">    e.stopPropagation();</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line">componentWillUnmount() &#123;</span><br><span class="line">  <span class="built_in">document</span>.body.removeEventListener(<span class="string">'click'</span>);</span><br><span class="line">  <span class="built_in">document</span>.querySelector(<span class="string">'.code'</span>).removeEventListener(<span class="string">'click'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以，应尽量避免在 React 中混用合成事件和原生 DOM 事件。另外，用  stopPropagation() 来阻止冒泡是不行的。阻止 React 事件冒泡的行为只能用于 React 合成事件系统中，且没办法阻止原生事件的冒泡。反之，在原生事件中的阻止冒泡行为，却可以阻止 React 合成事件的传播。</p>
+<h2 id="React样式处理"><a href="#React样式处理" class="headerlink" title="React样式处理"></a>React样式处理</h2><p><strong>一、基本样式设置</strong></p>
+<p>React 组件最终会生成 HTML，所以可以使用给普通 HTML 设置 CSS 一样的方法来设置样式。<br>如果我们想给组件添加类名，为了避免命名冲突，React 中需要设置  className prop。<br>此外，也可以通过  style prop 来给组件设置行内样式，  style prop 要为一个对象。</p>
+<p>动态类名使用 classnames 库。<br>例如，如果不使用 classnames 库，就需要这样处理动态类名：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">let</span> btnClass = <span class="string">'btn'</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.state.isPressed) &#123; btnClass += <span class="string">' btn-pressed'</span>; &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.state.isHovered) &#123; btnClass += <span class="string">' btn-over'</span>; &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;btnClass&#125;</span>&gt;</span>&#123;this.props.label&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<p>使用 classnames ：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> classNames <span class="keyword">from</span> <span class="string">'classnames'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">const</span> btnClass = classNames(&#123;</span><br><span class="line">      <span class="string">'btn'</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="string">'btn-pressed'</span>: <span class="keyword">this</span>.state.isPressed,</span><br><span class="line">      <span class="string">'btn-over'</span>: !<span class="keyword">this</span>.state.isPressed &amp;&amp; <span class="keyword">this</span>.state.isHovered,</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">className</span>=<span class="string">&#123;btnClass&#125;</span>&gt;</span>&#123;this.props.label&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p><strong>二、CSS Modules</strong></p>
+<p>CSS Modules 的大致功能就是通过操作类名，加入了局部作用域和模块依赖。<br>例如：有一个组件App<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> style <span class="keyword">from</span> <span class="string">'./App.css'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;h1 className=&#123;style.title&#125;&gt;</span><br><span class="line">      Hello World</span><br><span class="line">    &lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;;</span></span><br></pre></td></tr></table></figure></p>
+<p>以及 App.css<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.title</span> &#123;</span><br><span class="line">  <span class="attribute">color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>CSS Modules 会将类名 style.title 编译成一个哈希字符串<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;h1 <span class="class"><span class="keyword">class</span></span>=<span class="string">"_3zyde4l1yATCOkgn-DBWEL"</span>&gt;</span><br><span class="line">  Hello World</span><br><span class="line">&lt;<span class="regexp">/h1&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>App.css 也会被编译为<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">._3zyde4l1yATCOkgn-DBWEL &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>关于 CSS Modules 的基本使用总结如下：</p>
+<ul>
+<li>CSS Modules 产生局部作用域的唯一方法，就是使用一个独一无二的class的名字。</li>
+<li>并且会使用对象来保存原 class 和混淆后 class 的对应关系。</li>
+<li>CSS Modules 只会转换 class 名相关的样式，id 选择器、伪类和标签选择器等会原封不动地出现在编译后的 CSS 中</li>
+<li>可以使用  composes 来组合样式</li>
+<li>使用 react-css-modules 库，通过高阶组件的形式来避免重复输入 styles.</li>
+</ul>
+<h2 id="React组件"><a href="#React组件" class="headerlink" title="React组件"></a>React组件</h2><p><strong>一、组件间通信</strong></p>
+<p>  大致分为三种：</p>
+<ul>
+<li>父组件通过 props 给子组件通信</li>
+<li>子组件通过回调函数像父组件传递改变的信息（一般在 setState 后）</li>
+<li>使用  context 来实现跨级父子组件间的通信，在父组件中定义了 ChildContext，这样从这一层开始的子组件都可以拿到定义的 context</li>
+<li>另外，没有嵌套关系的组件，就只能通过影响全局的一些机制去考虑，例如常用的发布/订阅者模式</li>
+</ul>
+<p><strong>二、高阶组件</strong></p>
+<p>高阶组件（higher-order component），类似于高阶函数，它接受 React 组件作为输入，输出一个新的 React 组件。<br>当 React 组件被包裹时（wrapped），高阶组件会返回一个增强（enhanced）的 React 组件。高阶组件让我们的代码更具有复用性、逻辑性与抽象特性。它可以对  render 方法作劫持，也可以控制 props 与 state。</p>
+<p>实现高阶组件的方法有如下两种。</p>
+<ul>
+<li>属性代理（props proxy）。高阶组件通过被包裹的 React 组件来操作 props。</li>
+</ul>
+<p>属性代理是常见高阶组件的实现方法，例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'React'</span>;</span><br><span class="line"><span class="keyword">const</span> MyContainer = <span class="function">(<span class="params">WrappedComponent</span>) =&gt;</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">WrappedComponent</span> &#123;<span class="attr">...this.props</span>&#125; /&gt;</span>;</span></span><br><span class="line"><span class="xml">    &#125;</span></span><br><span class="line"><span class="xml">  &#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>也就是 render 方法中返回了传入 WrappedComponent 的 React 组件。这样，我们就可以通过高阶组件来传递 props，这种方法即为属性代理<br>使用也很方便<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'React'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line"><span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyContainer(MyComponent);</span><br></pre></td></tr></table></figure></p>
+<p>或者使用ES6的 decorator 来转换<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'React'</span>;</span><br><span class="line">@MyContainer</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyComponent</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  render() &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyComponent;</span><br></pre></td></tr></table></figure></p>
+<p>除了控制 props 外，通过高阶组件还可以做到抽象 state ,使用其他元素包裹（如添加内联样式）等</p>
+<ul>
+<li>反向继承（inheritance inversion）。高阶组件继承于被包裹的 React 组件。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> MyContainer(MyComponent);</span><br><span class="line"><span class="keyword">const</span> MyContainer = <span class="function">(<span class="params">WrappedComponent</span>) =&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">super</span>.render();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>在反向继承方法中，高阶组件可以使用 WrappedComponent 引用，这意味着它可以使用 WrappedComponent 的 state、props 、生命周期和 render 方法</p>
+<p>有两个重要的特点：</p>
+<ul>
+<li><p>渲染劫持<br>渲染劫持指的就是高阶组件可以控制 WrappedComponent 的渲染过程，并渲染各种各样的结果。我们可以在这个过程中在任何 React 元素输出的结果中读取、增加、修改、删除 props，或读取或修改 React 元素树，或条件显示元素树，又或是用样式控制包裹元素树<br>例如：<br>条件渲染</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContainer = <span class="function">(<span class="params">WrappedComponent</span>) =&gt;</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>.props.loggedIn) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.render();</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>控制State</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyContainer = <span class="function">(<span class="params">WrappedComponent</span>) =&gt;</span></span><br><span class="line">  <span class="class"><span class="keyword">class</span> <span class="keyword">extends</span> <span class="title">WrappedComponent</span> </span>&#123;</span><br><span class="line">    render() &#123;</span><br><span class="line">      <span class="keyword">return</span> (</span><br><span class="line">        &lt;div&gt;</span><br><span class="line">        &lt;h2&gt;HOC Debugger Component&lt;<span class="regexp">/h2&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p&gt;Props&lt;/</span>p&gt; <span class="xml"><span class="tag">&lt;<span class="name">pre</span>&gt;</span>&#123;JSON.stringify(this.props, null, 2)&#125;<span class="tag">&lt;/<span class="name">pre</span>&gt;</span></span></span><br><span class="line">      &lt;p&gt;State&lt;<span class="regexp">/p&gt;&lt;pre&gt;&#123;JSON.stringify(this.state, null, 2)&#125;&lt;/</span>pre&gt;</span><br><span class="line">      &#123;<span class="keyword">super</span>.render()&#125;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">  &#125;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在这个例子中显示了 WrappedComponent 的 props 和 state，可以方便调试</p>
+<p><strong>三、组件的性能优化</strong></p>
+<p>一般来说影响网页性能最大的因素是浏览器的重绘（reflow）和重排版（repaint）。React 背后的 Virtual DOM 就是尽可能地减少浏览器的重绘与重排版。</p>
+<p>从 React 的渲染过程来看，如何防止不避要的渲染可能是最需要去解决的问题<br>针对这个问题，React 官方提供了一个便捷的方法来解决，那就是 PureRender</p>
+<p>要理解 PureRender 中的 Pure，还要从函数式编程的基本概念“纯函数”讲起<br>纯函数有三大原则构成:</p>
+<ul>
+<li>给定相同的输入，它总是返回相同的输出</li>
+<li>过程没有副作用（side effect），就是说在纯函数中我们不能改变外部状态</li>
+<li>没有额外的状态依赖</li>
+</ul>
+<p>PureRender 中的 Pure 指的就是组件满足纯函数的条件，即组件的渲染是被相同的 props 和 state 渲染进而得到相同的结果</p>
+<p>PureRender的实现原理为重新实现了  shouldComponentUpdate 生命周期方法，让当前传入的 props 和 state 与之前的作浅比较，如果返回  false ，那么组件就不会执行  render 方法<br>在理想情况下，不考虑 props 和 state 的类型，那么要作到充分比较，只能通过深比较，但是它实在是太昂贵了，并且 PureRender 对 object 只作了引用比较，并没有作值比较， 因此 PureRender 源代码中只对新旧 props 作了浅比较。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">shallowEqual</span>(<span class="params">obj, newObj</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (obj === newObj) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">const</span> objKeys = <span class="built_in">Object</span>.keys(obj);</span><br><span class="line">  <span class="keyword">const</span> newObjKeys = <span class="built_in">Object</span>.keys(newObj);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (objKeys.length !== newObjKeys.length) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">// 关键代码，只需关注 props 中每一个是否相等，无需深入判断</span></span><br><span class="line">  <span class="keyword">return</span> objKeys.every(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> newObj[key] === obj[key];</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>实际运用PureRender可以通官方的 react-addons-pure-render-mixin 插件<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> PureRenderMixin <span class="keyword">from</span> <span class="string">'react-addons-pure-render-mixin'</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(<span class="keyword">this</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;this.props.className&#125;</span>&gt;</span>foo<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/08/02/reactinpattern/" rel="next" title="React-in-pattern以及Airbnb-React规范">
+                <i class="fa fa-chevron-left"></i> React-in-pattern以及Airbnb-React规范
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/08/react2/" rel="prev" title="React源码分析初步">
+                React源码分析初步 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Orwell" />
+            
+              <p class="site-author-name" itemprop="name">Orwell</p>
+              <p class="site-description motion-element" itemprop="description">React Up!</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React初探"><span class="nav-number">1.</span> <span class="nav-text">React初探</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React事件系统"><span class="nav-number">2.</span> <span class="nav-text">React事件系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React样式处理"><span class="nav-number">3.</span> <span class="nav-text">React样式处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React组件"><span class="nav-number">4.</span> <span class="nav-text">React组件</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Orwell</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
